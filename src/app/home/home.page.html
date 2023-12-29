@@ -1,0 +1,217 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="tertiary">
+    <ion-title>
+      <ion-grid>
+        <ion-row>
+          <!-- <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="3" size-xs="6"><img src="/assets/icon/logo.png" alt="云汇天下" height="20px" width="100px"></ion-col> -->
+          <!-- <ion-col size-xs="1" class="ion-hide-sm-up"><img src="/assets/icon/logo-xs.png" alt="云汇天下" height="30px" width="30px"></ion-col> -->
+          <ion-col size-xl="10" class="ion-hide-sm-down ion-align-self-center">AI生理检测</ion-col>
+          <ion-col size-xs="6" class="ion-hide-sm-up ion-align-self-center">AI生理检测</ion-col>
+        </ion-row>
+      </ion-grid>
+      <!-- <img src="/assets/icon/logo.png" alt="IHPC A*STAR"  height="40" style="margin: 0px;">
+      <span style="margin-left: 5%;">Contactless Vital Sign Measurement</span> -->
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div style="text-align: center;" [hidden]="isOn"  >
+    <video class="video" #firstVideo autoplay playsinline muted></video>
+    <div class="circle-box" id="circle-box"></div>
+  </div>
+  <div style="text-align: center;" [hidden]="!isOn" >
+    <video #videoElement ></video>
+    <canvas #canvasElement style="display: none"></canvas>
+    <div class="modal"></div>
+  </div>
+
+  <div style="text-align: center;">
+    <!-- <ion-button shape="round" (click)="isRecording ? stopRecord() : recordVideo()">
+        <ion-icon [name]="isRecording ? 'stop' : 'videocam'"></ion-icon>
+      </ion-button> -->
+    <!-- <ion-button shape="round">
+        <ion-icon [name]="isRecording ? 'stop' : 'videocam'"></ion-icon>
+      </ion-button> -->
+   
+    <button class="recordBtn" (click)="recordVideo()" [disabled]="isRecording">
+      {{recordMsg}}
+    </button>
+    <button class="recordBtn" (click)="changeIsOn()" [disabled]="isIsOn" > {{isOnMsg}} </button>
+    <button class="recordBtn" (click)="ToTongue()"  [disabled]="istongue" >{{tongueMsg}}</button>
+    <button class="recordBtn" (click)="upload()" [disabled]="isUpload">
+      {{uploadMsg}}
+    </button>
+
+    <button class="recordBtn" (click)="recordAgain()" [disabled]="isRecordAgain">再次采集</button>
+
+    <p><ion-spinner name="lines-sharp-small" *ngIf="spinner_show"></ion-spinner> {{status_message}}</p>
+  </div>
+
+  <div style="position: relative;">
+    <!-- <ion-card no-padding>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row class="ion-align-items-start">
+              <ion-col size-xl="3" size-xs="4">
+                <img src="/assets/icon/heart_beat.png" class="result-icon"><br />
+                <p><b>Heart Rate</b></p>
+              </ion-col>
+              <ion-col size-xl="5" size-xs="8">
+                <div echarts class="demo-chart" [options]="chartOption_HR" [merge]="new_chartOption_HR"></div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card no-padding>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row class="ion-align-items-start">
+              <ion-col size-xl="3" size-xs="4">
+                <img src="/assets/icon/breathing_rate.png" class="result-icon"><br />
+                <p><b>Breathing Rate</b></p>
+              </ion-col>
+              <ion-col size-xl="5" size-xs="8">
+                <div echarts class="demo-chart" [options]="chartOption_BR" [merge]="new_chartOption_BR"></div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+
+      <ion-card no-padding>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row class="ion-align-items-start">
+              <ion-col size-xl="3" size-xs="4">
+                <img src="/assets/icon/blood_pressure1.png" class="result-icon"><br />
+                <p><b>Blood Pressure</b></p>
+              </ion-col>
+              <ion-col size-xl="5" size-xs="4">
+                <div echarts class="demo-chart" [options]="chartOption_SBP" [merge]="new_chartOption_SBP"></div>
+              </ion-col>
+              <ion-col size-xl="3" size-xs="4">
+                <div echarts class="demo-chart" [options]="chartOption_DBP" [merge]="new_chartOption_DBP"></div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card> -->
+
+    <!-- <ion-card>
+        <ion-card-content>
+          <img src="/assets/icon/oxygen.png" class="result-icon">
+          <div [options]="options" class="demo-chart" echarts></div>
+        </ion-card-content>
+      </ion-card> -->
+
+    <ion-grid>
+      <ion-row class="ion-align-items-start">
+        <!-- <ion-col size-xl="3" size-xs="12">
+            <ion-card no-padding>
+              <ion-card-content>
+                <ion-grid>
+                  <ion-row class="ion-align-items-start">
+                    <ion-col size-xl="5" size-xs="5">
+                      <img src="/assets/icon/heart_beat.png" class="result-icon"><br />
+                      <p><b>心率</b></p>
+                    </ion-col>
+                    <ion-col size-xl="7" size-xs="7">
+                      <div echarts class="demo-chart" [options]="chartOption_HR" [merge]="new_chartOption_HR"></div>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-card-content>
+            </ion-card>
+          </ion-col> -->
+        <!-- 
+          <ion-col size-xl="4" size-xs="12">
+            <ion-card no-padding>
+              <ion-card-content>
+                <ion-grid>
+                  <ion-row class="ion-align-items-start">
+                    <ion-col size-xl="5" size-xs="5">
+                      <img src="/assets/icon/breathing_rate.png" class="result-icon"><br />
+                      <p><b>呼吸频率</b></p>
+                    </ion-col>
+                    <ion-col size-xl="7" size-xs="7">
+                      <div echarts class="demo-chart" [options]="chartOption_BR" [merge]="new_chartOption_BR"></div>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-card-content>
+            </ion-card>
+          </ion-col> -->
+
+        <!-- <ion-col size-xl="5" size-xs="12">
+            <ion-card no-padding>
+              <ion-card-content>
+                <ion-grid>
+                  <ion-row class="ion-align-items-start">
+                    <ion-col size-xl="4" size-xs="4">
+                      <img src="/assets/icon/blood_pressure1.png" class="result-icon"><br />
+                      <p><b>血压</b></p>
+                    </ion-col>
+                    <ion-col size-xl="4" size-xs="4">
+                      <div echarts class="demo-chart" [options]="chartOption_SBP" [merge]="new_chartOption_SBP"></div>
+                    </ion-col>
+                    <ion-col size-xl="4" size-xs="4">
+                      <div echarts class="demo-chart" [options]="chartOption_DBP" [merge]="new_chartOption_DBP"></div>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-card-content>
+            </ion-card>
+          </ion-col> -->
+      </ion-row>
+    </ion-grid>
+
+
+  </div>
+  <div class="acquisition">
+    <p><span>姓名：</span><input type="text" placeholder="请输入您的名字" [(ngModel)]="NameValue" [disabled]="isInp"></p>
+    <p><span>性别：</span>
+      <label>
+        男
+        <input type="radio" [(ngModel)]="selectedOption" value="male" [disabled]="isInp" >
+      </label>
+      <label>
+        女
+        <input type="radio" [(ngModel)]="selectedOption" value="female" [disabled]="isInp" >
+      </label>
+    </p>
+    <p><span>年龄：</span><input type="text" placeholder="请输入您的年龄" [(ngModel)]="ageValue" [disabled]="isInp"></p>
+    <p><span><span style="color: brown;">* </span>血压峰值:</span> <input [(ngModel)]="bpHeightValue" type="text" placeholder="请输入血压峰值" [disabled]="isInp"> </p>
+    <p><span><span style="color: brown;">* </span>血压低谷:</span><input [(ngModel)]="bpLowValue" type="text" placeholder="请输入血压低谷" [disabled]="isInp"></p>
+    <p><span><span style="color: brown;">* </span>心率:</span> <input [(ngModel)]="heartValue" type="text" placeholder="请输入心率" [disabled]="isInp"></p>
+  </div>
+  <!-- <div>
+      <button (click)="print()">打印</button>
+    </div> -->
+  <!-- <ion-row class="ion-align-items-start">
+      <ion-col size-xl="12" size-xs="12">
+        <ion-card class="advice-card">
+          <ion-card-content>
+            <ion-grid>
+              <ion-row class="ion-align-items-start">
+                <ion-col size-xl="3" size-xs="3" class="advice-icon-col">
+                  <img src="/assets/icon/health_advice.png" height="50px" width="50px" class="result-icon" alt="Health Advice Icon">
+                </ion-col>
+                <ion-col size-xl="9" size-xs="9" class="advice-text-col">
+                  <p *ngIf="status_message" class="health-advice">
+                    健康建议：<span>{{ healthAdvice }}</span>
+                  </p>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row> -->
+
+  <img [src]="photoData" *ngIf="photoData" class="photoData" alt="Product Image">
+  <!-- </div> -->
+</ion-content>

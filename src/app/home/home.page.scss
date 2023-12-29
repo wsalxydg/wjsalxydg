@@ -1,0 +1,179 @@
+// #container {ion-content
+//   text-align: center;
+
+//   position: absolute;
+//   left: 0;
+//   right: 0;
+//   top: 50%;
+//   transform: translateY(-50%);
+// }
+
+// #container strong {
+//   font-size: 20px;
+//   line-height: 26px;
+// }
+
+// #container p {
+//   font-size: 16px;
+//   line-height: 22px;
+
+//   color: #8c8c8c;
+
+//   margin: 0;
+// }
+
+// #container a {
+//   text-decoration: none;
+// }
+
+.video {
+  // width: 100%;
+  max-height: 350px;
+  // border: 2px solid red
+  
+  /* 如果需要水平翻转视频流 */
+  transform: scaleX(-1);
+}
+
+
+.circle-box {
+  // width: 100px;
+  height: 400px;
+  mask-image: radial-gradient( ellipse 350px 400px at center,transparent 30%, transparent 30%,yellow 10%,blue 30%,);
+  background-color: white;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -101%);
+  opacity:0.5; 
+}
+// .modal{
+//   height: 400px;
+//   clip-path: polygon(50% 0%, 0% 100%, 100% 100%); 
+//   background-color: white;
+//   position: absolute;
+//   left: 50%;
+//   transform: translate(-50%, -101%);
+//   opacity:0.5; 
+// }
+
+ion-content{
+  --ion-background-color: linear-gradient(to top right, #a0baf3, #6550ef);
+}
+
+
+ion-card{
+  // height: 150px;
+  width: 90%;
+  margin: 10px auto;
+  background: white;
+  text-align: center;
+}
+
+ion-card-content{
+  padding: 0;
+}
+
+.result-icon{
+  max-height:80px;
+  margin-left: 5%;
+}
+
+.demo-chart{
+  height:110px;
+  // width: 100%;
+  // border: solid 1px red;
+  padding: 0;
+}
+
+ion-grid {
+  --ion-grid-padding: 0px;
+  margin: 0px;
+  // border: solid 1px black;
+}
+
+ion-col {
+  // background-color: #135d54;
+  // border: solid 1px red;
+  // color: #fff;
+  text-align: center;
+}
+
+
+.advice-card {
+  background: #b4ffb4; // 选择一个轻和的背景色
+  border: 1px solid #e1e4e8; // 边框颜色
+  border-radius: 8px; // 卡片的圆角
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // 给卡片添加轻微的阴影
+  margin-top: 20px; // 与其他卡片的间距
+}
+
+.advice-icon-col {
+  display: flex;
+  justify-content: center; // 图标居中
+  align-items: center; // 图标垂直居中
+}
+
+.advice-text-col {
+  display: flex;
+  align-items: center; // 文本垂直居中
+  justify-content: flex-start; // 文本左对齐
+  padding-left: 10px; // 左侧内边距，以便与图标有些间隔
+}
+
+.health-advice {
+  font-size: 1rem; // 文本大小
+  color: #333; // 文本颜色
+  padding: 10px; // 内边距
+  // border-left: 3px solid #59EE76; // 侧边条作为装饰
+  margin: 0; // 移除默认的外边距
+  text-align: left; // 文本左对齐
+}
+
+
+.health-advice span {
+  font-weight: bold; // 使建议文本更加突出
+}
+.acquisition{
+ 
+  max-width: 600px; 
+  height: 400px;
+  // margin-left: 100%;
+  // transform: translate(); 
+  display: flex; 
+  margin:  auto;
+  flex-direction: column;
+  justify-content:space-evenly; 
+  padding: 10px;
+}
+.acquisition p{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.acquisition p input{
+  width: 80%;
+  height: 40px;
+  text-indent: 10px;
+}
+.acquisition p span{
+  font-weight: bold;
+}
+.recordBtn{
+  width: 100px;
+  height: 30px;
+  margin: 10px ;
+}
+label{
+  display: flex;
+  width: 50px;
+  align-items: center;
+  margin-right: 20%;
+}
+label input{
+  margin-left: 10px;
+}
+.photoData{
+  width: 450px;
+  margin-left: 50%;
+  transform: translate(-50%);
+}
